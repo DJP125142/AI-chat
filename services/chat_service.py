@@ -1,11 +1,5 @@
-# 1. 读取知识库文档
-txt = ""
-with open("data/qxy-1.txt", encoding="utf-8") as f:
-    for line in f:
-        txt += line.strip()
-
-# 2. 构建chain --- 用户输入 + 文档 = 完整的promt -> gpt -> 结果
 from services.init import init
+import urllib.request
 from langchain_openai import ChatOpenAI
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
@@ -19,7 +13,21 @@ template = """参考以下文档回答问题:
 """
 
 
-def ask_question(question):
+def ask_question(filename,question):
+    # 获取知识库文档
+    txt = ""
+    # 判断是否为网络资源
+    if "http" in filename:
+        # 从网络读取
+        with urllib.request.urlopen(filename) as f:
+            for line in f:
+                txt += line.decode("utf-8").strip()
+    else:
+        # 从本地文件读取
+        with open("data/" + filename, encoding="utf-8") as f:
+            for line in f:
+                txt += line.strip()
+
     # 创建 prompt
     prompt = ChatPromptTemplate.from_template(template)
     # 配置模型和解析器
