@@ -3,6 +3,7 @@
 支持自定义上传知识文档，调用chatGPT模型api接口进行AI智能解答问题
 
 ## 体验地址
+[AI南昌麻将算分规则](https://tool.djp.org.cn/ai_ncmj "大鸡排工作室出品！")
 
 ## 环境要求
 Python >= 3.12
