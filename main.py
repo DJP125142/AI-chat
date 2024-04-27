@@ -12,7 +12,6 @@ async def root():
 @app.post("/ask/")
 async def ask(question: str,type: int,filename:str=None):
     try:
-        # 调用服务逻辑
         answer = ask_question(question,type,filename)
         return {"answer": answer}
     except Exception as e:

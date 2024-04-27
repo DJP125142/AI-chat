@@ -6,7 +6,7 @@ from langchain_core.prompts import ChatPromptTemplate
 
 init()
 def ask_question(question,type,filename):
-    if type == 1:
+    if filename is None:
         # 问题模版为空，直接处理问题
         template = ""
     elif type == 2:
