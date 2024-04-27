@@ -10,10 +10,10 @@ async def root():
     return {"message": "Hello World"}
 
 @app.post("/ask/")
-async def ask(filename:str,question: str):
+async def ask(question: str,type: int,filename:str=None):
     try:
         # 调用服务逻辑
-        answer = ask_question(filename,question)
+        answer = ask_question(question,type,filename)
         return {"answer": answer}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

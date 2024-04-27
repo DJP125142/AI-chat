@@ -5,28 +5,31 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 
 init()
-template = """参考以下文档回答问题:
-{document}
+def ask_question(question,type,filename):
+    if type == 1:
+        # 问题模版为空，直接处理问题
+        template = ""
+    elif type == 2:
+        # 问题模版
+        template = """参考以下文档回答问题:
+            {document}
 
-问题:
-{question}
-"""
-
-
-def ask_question(filename,question):
-    # 获取知识库文档
-    txt = ""
-    # 判断是否为网络资源
-    if "http" in filename:
-        # 从网络读取
-        with urllib.request.urlopen(filename) as f:
-            for line in f:
-                txt += line.decode("utf-8").strip()
-    else:
-        # 从本地文件读取
-        with open("data/" + filename, encoding="utf-8") as f:
-            for line in f:
-                txt += line.strip()
+            问题:
+            {question}
+            """
+        # 获取知识库文档
+        txt = ""
+        # 判断是否为网络资源
+        if "http" in filename:
+            # 从网络读取
+            with urllib.request.urlopen(filename) as f:
+                for line in f:
+                    txt += line.decode("utf-8").strip()
+        else:
+            # 从本地文件读取
+            with open("data/" + filename, encoding="utf-8") as f:
+                for line in f:
+                    txt += line.strip()
 
     # 创建 prompt
     prompt = ChatPromptTemplate.from_template(template)
