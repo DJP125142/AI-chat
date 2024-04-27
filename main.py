@@ -10,7 +10,7 @@ async def root():
     return {"message": "Hello World"}
 
 @app.post("/ask/")
-async def ask(question: str,type: int,filename:str=None):
+async def ask(question: str,type: str,filename:str=None):
     try:
         answer = ask_question(question,type,filename)
         return {"answer": answer}

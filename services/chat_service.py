@@ -7,12 +7,12 @@ from langchain_core.prompts import ChatPromptTemplate
 init()
 def ask_question(question,type,filename):
     txt = ""
-    if type ==1:
+    if type == "1":
         # 问题模版为空，直接处理问题
         template  = """回答以下问题:
             {question}
             """
-    else:
+    elif type == "2":
         # 问题模版
         template = """参考以下文档回答问题:
             {document}
