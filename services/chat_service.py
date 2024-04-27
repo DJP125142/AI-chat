@@ -6,11 +6,11 @@ from langchain_core.prompts import ChatPromptTemplate
 
 init()
 def ask_question(question,type,filename):
+    txt = ""
     if type ==1:
         # 问题模版为空，直接处理问题
-        template = ""
-        txt = ""
-    elif type == 2:
+        prompt = ChatPromptTemplate("")
+    else:
         # 问题模版
         template = """参考以下文档回答问题:
             {document}
@@ -32,8 +32,9 @@ def ask_question(question,type,filename):
                 for line in f:
                     txt += line.strip()
 
-    # 创建 prompt
-    prompt = ChatPromptTemplate.from_template(template)
+        # 创建 prompt
+        prompt = ChatPromptTemplate.from_template(template)
+
     # 配置模型和解析器
     model = ChatOpenAI(model="gpt-3.5-turbo-0125", temperature=0)
     output_parser = StrOutputParser()
